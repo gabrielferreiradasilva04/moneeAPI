@@ -11,3 +11,7 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+app:
+  config:
+    api-key: ${JWT_SECRET:uz}
