@@ -38,6 +38,7 @@ public class UserEntity implements UserDetails {
     private String phone;
     private String profilePhotoUrl;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     //variáveis de auditoria
