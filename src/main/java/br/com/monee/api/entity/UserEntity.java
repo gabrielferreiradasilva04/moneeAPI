@@ -17,6 +17,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 @Getter
+@Data
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -48,6 +49,10 @@ public class UserEntity implements UserDetails {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime lastModifiedDate;
+
+    //Relacionamentos
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<TransactionEntity> transactions;
 
     public UserEntity(String name, String email, String password, String phone, String profilePhotoUrl) {
         this.name = name;
