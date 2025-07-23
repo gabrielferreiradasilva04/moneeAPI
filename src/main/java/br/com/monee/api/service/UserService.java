@@ -20,6 +20,10 @@ public class UserService {
         this.transactionRepository = transactionRepository;
     }
 
+    public void save(UserEntity user){
+        this.userRepository.save(user);
+    }
+
     public List<TransactionEntity> listAllTransactions(UUID userId){
        return this.transactionRepository.findAllByUserId(userId);
     }

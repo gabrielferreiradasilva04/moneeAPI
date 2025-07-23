@@ -1,9 +1,6 @@
 package br.com.monee.api.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,6 +17,8 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class TransactionEntity implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private BigDecimal amount;
     private LocalDate date;

@@ -19,6 +19,7 @@ public class SecurityFilterConfigurarion extends OncePerRequestFilter {
 
     private TokenService tokenService;
     private UserRepository userRepository;
+    public static String ACCESS_TOKEN = "access_token";
 
     public SecurityFilterConfigurarion(TokenService tokenService, UserRepository userRepository){
         this.tokenService = tokenService;
@@ -27,7 +28,7 @@ public class SecurityFilterConfigurarion extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = recoverToken(request);
+        var token = this.tokenService.recoverToken(request);
         if(token != null){
             var email = tokenService.validateToken(token);
             UserDetails userDetails = userRepository.findByEmail(email);
@@ -39,11 +40,4 @@ public class SecurityFilterConfigurarion extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request){
-        var authHeader = request.getHeader("Authorization");
-        if(authHeader != null && authHeader.startsWith("Bearer")){
-            return authHeader.replace("Bearer", "");
-        }
-        return null;
-    }
 }
