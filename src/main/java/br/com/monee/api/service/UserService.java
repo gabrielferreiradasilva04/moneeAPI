@@ -4,9 +4,11 @@ import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.UserEntity;
 import br.com.monee.api.repository.TransactionRepository;
 import br.com.monee.api.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,6 +28,12 @@ public class UserService {
 
     public List<TransactionEntity> listAllTransactions(UUID userId){
        return this.transactionRepository.findAllByUserId(userId);
+    }
+
+    public UserEntity getUserByUUID(UUID id){
+        Optional<UserEntity> optional = this.userRepository.findById(id);
+        if (optional.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
+        return optional.get();
     }
 
 

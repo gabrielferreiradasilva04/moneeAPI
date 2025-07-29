@@ -1,6 +1,8 @@
 package br.com.monee.api.exception;
 
 import br.com.monee.api.exception.custom.DuplicateRecordException;
+import br.com.monee.api.exception.custom.UnprocessableEntityException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -45,6 +47,20 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseErrorDTO handleDuplicateRecordException(DuplicateRecordException e){
         return new ResponseErrorDTO(HttpStatus.BAD_REQUEST.value(),
+                e.getMessage(),
+                null);
+    }
+
+    @ExceptionHandler(UnprocessableEntityException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseErrorDTO handleUnprocessableEntityException(UnprocessableEntityException e){
+        return new ResponseErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                e.getMessage(),
+                null);
+    }
+
+    public ResponseErrorDTO handleEntityNotFoundException (EntityNotFoundException e) {
+        return new ResponseErrorDTO(HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 null);
     }

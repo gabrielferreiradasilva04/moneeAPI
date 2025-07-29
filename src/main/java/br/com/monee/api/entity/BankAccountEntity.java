@@ -1,0 +1,49 @@
+package br.com.monee.api.entity;
+
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Table(name = "bank_account")
+@Getter
+@Data
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@EntityListeners(AuditingEntityListener.class)
+public class BankAccountEntity implements Serializable {
+    private static final long serialVersionUserId = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @Column(nullable = false, length = 200)
+    private String accountName;
+    @Column(nullable = false, length = 200)
+    private String bankName;
+    @Column(length = 200)
+    private String icon;
+    @Column(length = 200)
+    private String color;
+
+    //Variáveis de auditoria
+    @CreatedDate
+    private LocalDateTime createdDate;
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
+
+    //Relacionamentos
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
+}
