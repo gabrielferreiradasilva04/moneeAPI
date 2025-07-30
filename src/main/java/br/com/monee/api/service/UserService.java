@@ -26,10 +26,6 @@ public class UserService {
         this.userRepository.save(user);
     }
 
-    public List<TransactionEntity> listAllTransactions(UUID userId){
-       return this.transactionRepository.findAllByUserId(userId);
-    }
-
     public UserEntity getUserByUUID(UUID id){
         Optional<UserEntity> optional = this.userRepository.findById(id);
         if (optional.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");

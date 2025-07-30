@@ -1,8 +1,7 @@
 package br.com.monee.api.controller.mapper;
 
 import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.UserEntityLoginDTO;
-import br.com.monee.api.entity.dto.UserEntityRequestDTO;
+import br.com.monee.api.entity.dto.UserLoginDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -20,9 +19,9 @@ public interface UserEntityLoginMapper {
     @Mapping(target = "phone", ignore = true)
     @Mapping(target = "userRole", ignore = true)
     @Mapping(target = "profilePhotoUrl", ignore = true)
-    UserEntity toEntity (UserEntityLoginDTO dto);
+    UserEntity toEntity (UserLoginDTO dto);
 
-    UserEntityLoginDTO toDto(UserEntity userEntity);
+    UserLoginDTO toDto(UserEntity userEntity);
 
 
 }

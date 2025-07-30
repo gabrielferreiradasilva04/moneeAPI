@@ -2,8 +2,8 @@ package br.com.monee.api.controller;
 
 import br.com.monee.api.controller.mapper.UserRequestMapper;
 import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.UserEntityLoginDTO;
-import br.com.monee.api.entity.dto.UserEntityRequestDTO;
+import br.com.monee.api.entity.dto.UserLoginDTO;
+import br.com.monee.api.entity.dto.UserRequestDTO;
 import br.com.monee.api.service.TokenService;
 import br.com.monee.api.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,7 +36,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid UserEntityRequestDTO dto){
+    public ResponseEntity<?> register(@RequestBody @Valid UserRequestDTO dto){
         UserEntity userEntity = this.userRequestMapper.toEntity(dto);
         String encryptedPassword = new BCryptPasswordEncoder().encode(userEntity.getPassword());
         userEntity.setPassword(encryptedPassword);
@@ -45,7 +45,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserEntityLoginDTO dto, HttpServletResponse response){
+    public ResponseEntity<?> login(@RequestBody UserLoginDTO dto, HttpServletResponse response){
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.password());
         var authenticate = this.authenticationManager.authenticate(usernamePassword);
         var token = this.tokenService.generateToken((UserEntity) authenticate.getPrincipal());

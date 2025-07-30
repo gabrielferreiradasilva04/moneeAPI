@@ -59,6 +59,8 @@ public class GlobalExceptionHandler {
                 null);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseErrorDTO handleEntityNotFoundException (EntityNotFoundException e) {
         return new ResponseErrorDTO(HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),

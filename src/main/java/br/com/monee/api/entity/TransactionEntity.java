@@ -21,10 +21,18 @@ public class TransactionEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private BigDecimal amount;
+    @Column(nullable = false)
     private LocalDate date;
     private boolean fixed;
-
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType transactionType;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private UserEntity user;
+    @ManyToOne
+    @JoinColumn
+    private BankAccountEntity transactionBank;
+
+
 }

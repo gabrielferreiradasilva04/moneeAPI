@@ -28,8 +28,8 @@ public class BankAccountEntity implements Serializable {
     private UUID id;
     @Column(nullable = false, length = 200)
     private String accountName;
-    @Column(nullable = false, length = 200)
-    private String bankName;
+    @Column(nullable = false, length = 800)
+    private String description;
     @Column(length = 200)
     private String icon;
     @Column(length = 200)

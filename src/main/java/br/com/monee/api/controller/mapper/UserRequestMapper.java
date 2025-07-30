@@ -1,7 +1,7 @@
 package br.com.monee.api.controller.mapper;
 
 import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.UserEntityRequestDTO;
+import br.com.monee.api.entity.dto.UserRequestDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -16,7 +16,7 @@ public interface UserRequestMapper {
     @Mapping(target = "lastModifiedDate", ignore = true)
     @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "profilePhotoUrl", ignore = true)
-    UserEntity toEntity (UserEntityRequestDTO dto);
+    UserEntity toEntity (UserRequestDTO dto);
 
-    UserEntityRequestDTO toDto(UserEntity userEntity);
+    UserRequestDTO toDto(UserEntity userEntity);
 }
