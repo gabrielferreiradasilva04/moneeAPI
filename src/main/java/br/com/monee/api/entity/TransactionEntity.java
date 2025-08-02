@@ -15,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class TransactionEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "transaction")
+public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
