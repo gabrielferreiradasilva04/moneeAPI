@@ -34,9 +34,9 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/transactions")
-    public ResponseEntity<?> getAllUserTransactions(@PathVariable UUID stringUserId) {
+    public ResponseEntity<?> getAllUserTransactions(@PathVariable UUID userId) {
         return ResponseEntity.ok().body(
-                this.transactionService.getAllUserTransactions(stringUserId)
+                this.transactionService.getAllUserTransactions(userId)
         );
     }
     @PostMapping("/{userId}/transactions")

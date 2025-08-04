@@ -6,6 +6,8 @@ import lombok.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +35,11 @@ public class TransactionEntity {
     @ManyToOne
     @JoinColumn
     private BankAccountEntity transactionBank;
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "transaction_tag",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<TagEntity> tags = new ArrayList<>();
 }
