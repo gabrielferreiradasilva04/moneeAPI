@@ -20,4 +20,7 @@ public class TagEntity {
     private String title;
     @Column(nullable = false)
     private String color;
+    @ManyToOne
+    @JoinColumn
+    private UserEntity user;
 }

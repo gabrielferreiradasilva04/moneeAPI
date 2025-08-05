@@ -2,6 +2,7 @@ package br.com.monee.api.service;
 
 import br.com.monee.api.controller.mapper.TagMapper;
 import br.com.monee.api.controller.mapper.TransactionMapper;
+import br.com.monee.api.entity.BankAccountEntity;
 import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.UserEntity;
 import br.com.monee.api.entity.dto.TagDTO;
@@ -20,19 +21,25 @@ public class TransactionService {
     private final TransactionMapper transactionMapper;
     private final UserService userService;
     private final TagMapper tagMapper;
+    private final BankAccountService bankAccountService;
 
     public TransactionService (TransactionRepository transactionRepository,
-                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper) {
+                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper, BankAccountService bankAccountService) {
         this.transactionRepository = transactionRepository;
         this.transactionMapper = transactionMapper;
         this.userService = userService;
         this.tagMapper = tagMapper;
+        this.bankAccountService = bankAccountService;
     }
 
     public TransactionResponseDTO save(UUID userId, TransactionRequestDTO transactionRequestDTO)  {
-        var transactionEntity = this.transactionMapper.requestToEntity(transactionRequestDTO);
         UserEntity user = this.userService.getUserByUUID(userId);
+        BankAccountEntity bank = this.bankAccountService.getByIdAndUserId(transactionRequestDTO.bankAccountId(), userId);
+
+        TransactionEntity transactionEntity = this.transactionMapper.requestToEntity(transactionRequestDTO);
+        transactionEntity.setTransactionBank(bank);
         transactionEntity.setUser(user);
+
         return this.transactionMapper
                 .toResponseDto(this.transactionRepository.save(transactionEntity));
     }

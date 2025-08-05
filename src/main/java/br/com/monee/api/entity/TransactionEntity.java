@@ -33,7 +33,7 @@ public class TransactionEntity {
     @JoinColumn(nullable = false)
     private UserEntity user;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private BankAccountEntity transactionBank;
     @ManyToMany
     @JoinTable(
