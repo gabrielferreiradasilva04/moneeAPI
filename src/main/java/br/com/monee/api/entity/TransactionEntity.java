@@ -30,7 +30,7 @@ public class TransactionEntity {
     @Column(nullable = false)
     private TransactionType transactionType;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "user_id")
     private UserEntity user;
     @ManyToOne
     @JoinColumn(nullable = false)

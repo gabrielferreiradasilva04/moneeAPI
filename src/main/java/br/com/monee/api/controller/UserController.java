@@ -7,6 +7,7 @@ import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.dto.BankAccountRequestDTO;
 import br.com.monee.api.entity.dto.TagDTO;
 import br.com.monee.api.entity.dto.TransactionRequestDTO;
+import br.com.monee.api.entity.dto.TransactionTagRequestDTO;
 import br.com.monee.api.service.BankAccountService;
 import br.com.monee.api.service.TagService;
 import br.com.monee.api.service.TransactionService;
@@ -51,12 +52,12 @@ public class UserController {
                 body(this.transactionService.save(userId, transactionRequestDTO));
     }
 
-    @PostMapping("/{userId}/bank-accounts")
-    public ResponseEntity<?> createBankAccount(@PathVariable UUID userId,
-                                               @RequestBody @Valid BankAccountRequestDTO bankAccountRequestDTO)
-    {
-        return ResponseEntity.status(HttpStatus.CREATED).
-                body(this.bankAccountService.save(userId, bankAccountRequestDTO));
+    @PostMapping("/{userId}/transactions/{transactionId}/tags")
+    public ResponseEntity<?> addTagsToTransaction(@PathVariable UUID userId,
+                                                  @PathVariable UUID transactionId,
+                                                  @RequestBody TransactionTagRequestDTO tagsId){
+        this.transactionService.addTags(userId, transactionId, tagsId.tagIds());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/{userId}/tags")
@@ -66,4 +67,14 @@ public class UserController {
                 .body(this.tagService.saveUserTag(tagDto, userId));
 
     }
+
+    @PostMapping("/{userId}/bank-accounts")
+    public ResponseEntity<?> createBankAccount(@PathVariable UUID userId,
+                                               @RequestBody @Valid BankAccountRequestDTO bankAccountRequestDTO)
+    {
+        return ResponseEntity.status(HttpStatus.CREATED).
+                body(this.bankAccountService.save(userId, bankAccountRequestDTO));
+    }
+
+
 }

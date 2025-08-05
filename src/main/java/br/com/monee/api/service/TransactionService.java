@@ -3,11 +3,14 @@ package br.com.monee.api.service;
 import br.com.monee.api.controller.mapper.TagMapper;
 import br.com.monee.api.controller.mapper.TransactionMapper;
 import br.com.monee.api.entity.BankAccountEntity;
+import br.com.monee.api.entity.TagEntity;
 import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.UserEntity;
 import br.com.monee.api.entity.dto.TagDTO;
 import br.com.monee.api.entity.dto.TransactionRequestDTO;
 import br.com.monee.api.entity.dto.TransactionResponseDTO;
+import br.com.monee.api.entity.dto.TransactionTagRequestDTO;
+import br.com.monee.api.repository.TagRepository;
 import br.com.monee.api.repository.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -22,14 +25,16 @@ public class TransactionService {
     private final UserService userService;
     private final TagMapper tagMapper;
     private final BankAccountService bankAccountService;
+    private final TagService tagService;
 
     public TransactionService (TransactionRepository transactionRepository,
-                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper, BankAccountService bankAccountService) {
+                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper, BankAccountService bankAccountService, TagService tagService) {
         this.transactionRepository = transactionRepository;
         this.transactionMapper = transactionMapper;
         this.userService = userService;
         this.tagMapper = tagMapper;
         this.bankAccountService = bankAccountService;
+        this.tagService = tagService;
     }
 
     public TransactionResponseDTO save(UUID userId, TransactionRequestDTO transactionRequestDTO)  {
@@ -52,11 +57,14 @@ public class TransactionService {
                 .toList();
     }
 
-    public void addTag(UUID transactionId, TagDTO tagDto){
-        var transactionOptional = this.transactionRepository.findById(transactionId);
-        if ((transactionOptional.isEmpty())) throw new EntityNotFoundException("transação não encontrada");
-        var transactionEntity = transactionOptional.get();
-        transactionEntity.getTags().add(this.tagMapper.toEntity(tagDto));
+    public void addTags(UUID userId, UUID transactionId, List<UUID> tagIds){
+        TransactionEntity transactionEntity = this.transactionRepository.findByIdAndUserId(transactionId, userId)
+                .orElseThrow(()-> new EntityNotFoundException(
+                        "Transação não encontrada"
+                ));
+        List<TagEntity> tags = this.tagService.getAllById(tagIds);
+
+        transactionEntity.setTags(tags);
         this.transactionRepository.save(transactionEntity);
     }
     
