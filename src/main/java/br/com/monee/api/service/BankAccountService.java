@@ -51,4 +51,18 @@ public class BankAccountService {
 
         return this.bankAccountRepository.save(existingAccount);
     }
+
+    public BankAccountEntity getById(UUID bankId){
+        return this.bankAccountRepository.findById(bankId)
+                .orElseThrow(() ->  new EntityNotFoundException(
+                        ("Conta Banária não encontrada")
+                ));
+    }
+
+    public BankAccountEntity getByIdAndUserId(UUID bankId, UUID userId){
+        return this.bankAccountRepository.findByIdAndUserId(bankId, userId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Conta bancária não encontrada para este usuário"
+                ));
+    }
 }

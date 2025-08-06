@@ -27,9 +27,10 @@ public class UserService {
     }
 
     public UserEntity getUserByUUID(UUID id){
-        Optional<UserEntity> optional = this.userRepository.findById(id);
-        if (optional.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
-        return optional.get();
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Usuário não encontrado"
+                ));
     }
 
 

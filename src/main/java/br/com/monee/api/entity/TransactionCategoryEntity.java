@@ -2,6 +2,7 @@ package br.com.monee.api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.UUID;
 
 @Entity
@@ -11,16 +12,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "tag")
-public class TagEntity {
+@Table(name = "transaction_category")
+public class TransactionCategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
+    private String description;
+    private String icon;
     private String color;
-    @ManyToOne
-    @JoinColumn
-    private UserEntity user;
 }

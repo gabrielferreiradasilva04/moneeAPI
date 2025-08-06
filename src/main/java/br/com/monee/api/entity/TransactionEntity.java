@@ -30,10 +30,10 @@ public class TransactionEntity {
     @Column(nullable = false)
     private TransactionType transactionType;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "user_id")
     private UserEntity user;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private BankAccountEntity transactionBank;
     @ManyToMany
     @JoinTable(
@@ -42,4 +42,7 @@ public class TransactionEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<TagEntity> tags = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "transaction_category_id", nullable = false)
+    private TransactionCategoryEntity transactionCategory;
 }
