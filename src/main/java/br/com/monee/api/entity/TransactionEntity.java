@@ -42,4 +42,7 @@ public class TransactionEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<TagEntity> tags = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "transaction_category_id", nullable = false)
+    private TransactionCategoryEntity transactionCategory;
 }

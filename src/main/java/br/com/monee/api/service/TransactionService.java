@@ -2,10 +2,7 @@ package br.com.monee.api.service;
 
 import br.com.monee.api.controller.mapper.TagMapper;
 import br.com.monee.api.controller.mapper.TransactionMapper;
-import br.com.monee.api.entity.BankAccountEntity;
-import br.com.monee.api.entity.TagEntity;
-import br.com.monee.api.entity.TransactionEntity;
-import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.entity.*;
 import br.com.monee.api.entity.dto.TagDTO;
 import br.com.monee.api.entity.dto.TransactionRequestDTO;
 import br.com.monee.api.entity.dto.TransactionResponseDTO;
@@ -26,24 +23,31 @@ public class TransactionService {
     private final TagMapper tagMapper;
     private final BankAccountService bankAccountService;
     private final TagService tagService;
+    private final TransactionCategoryService transactionCategoryService;
 
     public TransactionService (TransactionRepository transactionRepository,
-                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper, BankAccountService bankAccountService, TagService tagService) {
+                               TransactionMapper transactionMapper, UserService userService, TagMapper tagMapper,
+                               BankAccountService bankAccountService, TagService tagService,
+                               TransactionCategoryService transactionCategoryService) {
         this.transactionRepository = transactionRepository;
         this.transactionMapper = transactionMapper;
         this.userService = userService;
         this.tagMapper = tagMapper;
         this.bankAccountService = bankAccountService;
         this.tagService = tagService;
+        this.transactionCategoryService = transactionCategoryService;
     }
 
     public TransactionResponseDTO save(UUID userId, TransactionRequestDTO transactionRequestDTO)  {
         UserEntity user = this.userService.getUserByUUID(userId);
         BankAccountEntity bank = this.bankAccountService.getByIdAndUserId(transactionRequestDTO.bankAccountId(), userId);
-
+        TransactionCategoryEntity transactionCategoryEntity = this.transactionCategoryService.getById(
+                transactionRequestDTO.transactionCategoryId()
+        );
         TransactionEntity transactionEntity = this.transactionMapper.requestToEntity(transactionRequestDTO);
         transactionEntity.setTransactionBank(bank);
         transactionEntity.setUser(user);
+        transactionEntity.setTransactionCategory(transactionCategoryEntity);
 
         return this.transactionMapper
                 .toResponseDto(this.transactionRepository.save(transactionEntity));
