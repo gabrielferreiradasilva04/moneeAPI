@@ -1,0 +1,30 @@
+package br.com.monee.api.service;
+
+import br.com.monee.api.controller.mapper.FinancialGoalMapper;
+import br.com.monee.api.entity.FinancialGoalEntity;
+import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.entity.dto.FinancialGoalRequestDTO;
+import br.com.monee.api.entity.dto.FinancialGoalResponseDTO;
+import br.com.monee.api.repository.FinancialGoalRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class FinancialGoalService {
+    private final FinancialGoalRepository financialGoalRepository;
+    private final FinancialGoalMapper financialGoalMapper;
+    private final UserService userService;
+    public FinancialGoalService(FinancialGoalRepository financialGoalRepository, FinancialGoalMapper financialGoalMapper, UserService userService) {
+        this.financialGoalRepository = financialGoalRepository;
+        this.financialGoalMapper = financialGoalMapper;
+        this.userService = userService;
+    }
+
+    public FinancialGoalResponseDTO save(FinancialGoalRequestDTO dto) {
+        FinancialGoalEntity financialGoalEntity = this.financialGoalMapper.requestToEntity(dto);
+        UserEntity user = this.userService.getUserByUUID(dto.userId());
+        financialGoalEntity.setUser(user);
+
+        return this.financialGoalMapper.entityToResponse(this.financialGoalRepository.save(financialGoalEntity));
+
+    }
+}
