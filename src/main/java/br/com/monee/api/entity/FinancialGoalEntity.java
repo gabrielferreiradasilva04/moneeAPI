@@ -19,7 +19,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Table(name = "financial_goal")
 @EntityListeners(AuditingEntityListener.class)
-public class FinancialGoal {
+public class FinancialGoalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
