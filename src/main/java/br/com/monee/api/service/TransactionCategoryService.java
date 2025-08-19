@@ -1,6 +1,10 @@
 package br.com.monee.api.service;
 
+import br.com.monee.api.controller.mapper.TransactionCategoryMapper;
 import br.com.monee.api.entity.TransactionCategoryEntity;
+import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.entity.dto.TransactionCategoryRequestDTO;
+import br.com.monee.api.entity.dto.TransactionCategoryResponseDTO;
 import br.com.monee.api.repository.TransactionCategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -10,9 +14,13 @@ import java.util.UUID;
 @Service
 public class TransactionCategoryService {
     private final TransactionCategoryRepository transactionCategoryRepository;
+    private final UserService userService;
+    private final TransactionCategoryMapper transactionCategoryMapper;
 
-    public TransactionCategoryService(TransactionCategoryRepository transactionCategoryRepository) {
+    public TransactionCategoryService(TransactionCategoryRepository transactionCategoryRepository, UserService userService, TransactionCategoryMapper transactionCategoryMapper) {
         this.transactionCategoryRepository = transactionCategoryRepository;
+        this.userService = userService;
+        this.transactionCategoryMapper = transactionCategoryMapper;
     }
 
     public TransactionCategoryEntity getById(UUID transactionCategoryId) {
@@ -21,5 +29,13 @@ public class TransactionCategoryService {
                 .orElseThrow( () -> new EntityNotFoundException(
                         "Categoria de transação não encontrada"
                 ));
+    }
+
+    public TransactionCategoryResponseDTO save(UUID userId, TransactionCategoryRequestDTO transactionCategoryRequestDTO){
+        UserEntity user = this.userService.getUserByUUID(userId);
+        TransactionCategoryEntity entity = this.transactionCategoryMapper.requestToEntity(transactionCategoryRequestDTO);
+
+        entity.setUser(user);
+        return this.transactionCategoryMapper.entityToResponse(this.transactionCategoryRepository.save(entity));
     }
 }
