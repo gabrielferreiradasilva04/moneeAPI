@@ -6,9 +6,11 @@ import br.com.monee.api.entity.CreditCardEntity;
 import br.com.monee.api.entity.dto.CreditCardRequestDTO;
 import br.com.monee.api.entity.dto.CreditCardResponseDTO;
 import br.com.monee.api.repository.CreditCardRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class CreditCardService {
 
     private final CreditCardRepository creditCardRepository;

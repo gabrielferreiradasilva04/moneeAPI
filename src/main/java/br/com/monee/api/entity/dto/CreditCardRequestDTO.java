@@ -5,5 +5,5 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record CreditCardRequestDTO(String carName, BigDecimal creditLimit, LocalDate closingDate,
-                                   LocalDate dueDate, UUID bankAccount) {
+                                   LocalDate dueDate) {
 }

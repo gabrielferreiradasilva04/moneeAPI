@@ -21,17 +21,19 @@ public class UserController {
     private final BankAccountService bankAccountService;
     private final TransactionService transactionService;
     private final TagService tagService;
+    private final CreditCardService creditCardService;
     private final TransactionCategoryService transactionCategoryService;
 
 
     public UserController(UserService userService, TransactionMapper transactionMapper,
-                          BankAccountService bankAccountService, TransactionService transactionService, TagService tagService, TransactionCategoryService transactionCategoryService)
+                          BankAccountService bankAccountService, TransactionService transactionService, TagService tagService, CreditCardService creditCardService, TransactionCategoryService transactionCategoryService)
     {
         this.userService = userService;
         this.transactionMapper = transactionMapper;
         this.bankAccountService = bankAccountService;
         this.transactionService = transactionService;
         this.tagService = tagService;
+        this.creditCardService = creditCardService;
         this.transactionCategoryService = transactionCategoryService;
     }
 
@@ -73,6 +75,12 @@ public class UserController {
                 body(this.bankAccountService.save(userId, bankAccountRequestDTO));
     }
 
+    @PostMapping("/{userId}/bank-accounts/{bankId}/credit-cards")
+    public ResponseEntity<?> createCreditCard(@PathVariable UUID bankId, @RequestBody CreditCardRequestDTO creditCardRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.creditCardService.save(bankId, creditCardRequestDTO));
+
+    }
 
     @PostMapping("/{userId}/transaction-categories")
     public ResponseEntity<?> createTransactionCategory (@PathVariable UUID userId,
