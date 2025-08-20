@@ -6,10 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "challenge")
+@Table(name = "quiz")
 @Getter
 @Data
 @Setter
@@ -17,7 +19,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-public class ChallengeEntity {
+public class QuizEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -26,17 +29,24 @@ public class ChallengeEntity {
     @Column(nullable = false, length = 700)
     private String description;
     private int xpReward;
-    private LocalDate completedOn;
     @CreatedDate
     private LocalDate createdOn;
+    private int minimumScore;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ChallengeStatus status;
+    @Enumerated(EnumType.STRING)
+    private QuizStatus quizStatus;
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private UserEntity user;
+    private LevelEntity level;
 
+    @ManyToMany
+    @JoinTable(
+            name = "quiz_questions",
+            joinColumns = @JoinColumn(name = "quiz_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private List<QuizQuestionEntity> questions = new ArrayList<>();
 
 }
