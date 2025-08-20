@@ -4,14 +4,8 @@ import br.com.monee.api.controller.mapper.BankAccountMapper;
 import br.com.monee.api.controller.mapper.TransactionMapper;
 import br.com.monee.api.entity.BankAccountEntity;
 import br.com.monee.api.entity.TransactionEntity;
-import br.com.monee.api.entity.dto.BankAccountRequestDTO;
-import br.com.monee.api.entity.dto.TagDTO;
-import br.com.monee.api.entity.dto.TransactionRequestDTO;
-import br.com.monee.api.entity.dto.TransactionTagRequestDTO;
-import br.com.monee.api.service.BankAccountService;
-import br.com.monee.api.service.TagService;
-import br.com.monee.api.service.TransactionService;
-import br.com.monee.api.service.UserService;
+import br.com.monee.api.entity.dto.*;
+import br.com.monee.api.service.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +21,20 @@ public class UserController {
     private final BankAccountService bankAccountService;
     private final TransactionService transactionService;
     private final TagService tagService;
+    private final CreditCardService creditCardService;
+    private final TransactionCategoryService transactionCategoryService;
+
 
     public UserController(UserService userService, TransactionMapper transactionMapper,
-                          BankAccountService bankAccountService, TransactionService transactionService, TagService tagService)
+                          BankAccountService bankAccountService, TransactionService transactionService, TagService tagService, CreditCardService creditCardService, TransactionCategoryService transactionCategoryService)
     {
         this.userService = userService;
         this.transactionMapper = transactionMapper;
         this.bankAccountService = bankAccountService;
         this.transactionService = transactionService;
         this.tagService = tagService;
+        this.creditCardService = creditCardService;
+        this.transactionCategoryService = transactionCategoryService;
     }
 
     @GetMapping("/{userId}/transactions")
@@ -76,5 +75,18 @@ public class UserController {
                 body(this.bankAccountService.save(userId, bankAccountRequestDTO));
     }
 
+    @PostMapping("/{userId}/bank-accounts/{bankId}/credit-cards")
+    public ResponseEntity<?> createCreditCard(@PathVariable UUID bankId, @RequestBody CreditCardRequestDTO creditCardRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(this.creditCardService.save(bankId, creditCardRequestDTO));
 
+    }
+
+    @PostMapping("/{userId}/transaction-categories")
+    public ResponseEntity<?> createTransactionCategory (@PathVariable UUID userId,
+                                                        @RequestBody TransactionCategoryRequestDTO transactionCategoryRequestDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                this.transactionCategoryService.save(userId, transactionCategoryRequestDTO)
+        );
+    }
 }

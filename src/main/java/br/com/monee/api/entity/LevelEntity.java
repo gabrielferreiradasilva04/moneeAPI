@@ -12,19 +12,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@Table(name = "transaction_category")
-public class TransactionCategoryEntity {
+@Table(name = "level")
+public class LevelEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String title;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 255)
     private String description;
-    private String icon;
-    private String color;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private int xpMinimum;
+    private int xpMaximum;
 }

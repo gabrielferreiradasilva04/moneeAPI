@@ -50,9 +50,9 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private LocalDateTime lastModifiedDate;
 
-    //Relacionamentos
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<TransactionEntity> transactions;
+    @ManyToOne
+    @JoinColumn
+    private LevelEntity level;
 
     public UserEntity(String name, String email, String password, String phone, String profilePhotoUrl) {
         this.name = name;
