@@ -24,4 +24,11 @@ public class LevelEntity {
     private String description;
     private int xpMinimum;
     private int xpMaximum;
+
+    public LevelEntity (String title, String description, int xpMinimum, int xpMaximum){
+        this.title = title;
+        this.description = description;
+        this.xpMinimum = xpMinimum;
+        this.xpMaximum = xpMaximum;
+    }
 }

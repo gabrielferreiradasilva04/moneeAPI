@@ -1,9 +1,5 @@
 package br.com.monee.api.controller;
-
-import br.com.monee.api.controller.mapper.BankAccountMapper;
 import br.com.monee.api.controller.mapper.TransactionMapper;
-import br.com.monee.api.entity.BankAccountEntity;
-import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.dto.*;
 import br.com.monee.api.service.*;
 import jakarta.validation.Valid;
@@ -88,5 +84,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 this.transactionCategoryService.save(userId, transactionCategoryRequestDTO)
         );
+    }
+
+    @PostMapping("/{userId}/challenges/create-challenges")
+    public ResponseEntity<?> createChallenge(@PathVariable UUID userId){
+        this.userService.createChallenges(userId);
+        return ResponseEntity.ok().build();
     }
 }

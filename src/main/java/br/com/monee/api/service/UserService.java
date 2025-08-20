@@ -33,6 +33,10 @@ public class UserService {
                 ));
     }
 
+    public void createChallenges(UUID userId){
+
+    };
+
 
 
 
