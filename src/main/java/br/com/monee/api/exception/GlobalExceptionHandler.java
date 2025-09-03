@@ -4,14 +4,16 @@ import br.com.monee.api.exception.custom.DuplicateRecordException;
 import br.com.monee.api.exception.custom.UnprocessableEntityException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,5 +82,25 @@ public class GlobalExceptionHandler {
                 errors.put(violation.getPropertyPath().toString(), violation.getMessage())
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseErrorDTO handleBadCredentialsException(BadCredentialsException e) {
+        return new ResponseErrorDTO(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Credenciais inválidas. Verifique seu e-mail e senha.",
+                null
+        );
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseErrorDTO handleAuthenticationException(AuthenticationException e) {
+        return new ResponseErrorDTO(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Credenciais inválidas ou desabilitadas. Verifique",
+                null
+        );
     }
 }
