@@ -78,7 +78,7 @@ public class TokenService {
                 .secure(false)
                 .path("/")
                 .maxAge(Duration.ofHours(1))
-                .sameSite("None")
+                .sameSite("Lax")
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
     }
