@@ -51,6 +51,12 @@ public class AuthenticationController {
         return  ResponseEntity.ok().build();
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse httpServletResponse){
+        this.tokenService.logout(httpServletResponse);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/verify-auth")
     public ResponseEntity<?> verifyLogin(Authentication authentication){
         if(authentication == null){
