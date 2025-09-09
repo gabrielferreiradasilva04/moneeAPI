@@ -115,4 +115,15 @@ public class TokenService {
         return null;
     }
 
+    public void logout(HttpServletResponse response){
+        ResponseCookie jwtCookie = ResponseCookie.from("access_token", "")
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Lax")
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, jwtCookie.toString());
+    }
+
 }
