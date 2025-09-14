@@ -65,4 +65,16 @@ public class AuthenticationController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<?> getUserData(Authentication authentication){
+        if(authentication == null) {
+            return ResponseEntity.status((HttpStatus.UNAUTHORIZED)).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                this.userService.getUserDefaultData(
+                        (UserEntity) authentication.getPrincipal()
+                )
+        );
+    }
+
 }
