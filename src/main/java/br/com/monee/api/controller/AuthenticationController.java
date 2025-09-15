@@ -1,7 +1,9 @@
 package br.com.monee.api.controller;
 
+import br.com.monee.api.controller.mapper.UserMapper;
 import br.com.monee.api.controller.mapper.UserRequestMapper;
 import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.entity.dto.UserDefaultDataDTO;
 import br.com.monee.api.entity.dto.UserLoginDTO;
 import br.com.monee.api.entity.dto.UserRequestDTO;
 import br.com.monee.api.service.TokenService;
@@ -24,13 +26,14 @@ public class AuthenticationController {
     private final TokenService tokenService;
     private final UserRequestMapper userRequestMapper;
     private final UserService userService;
-
+    private final UserMapper userMapper;
     public AuthenticationController(AuthenticationManager authenticationManager, TokenService tokenService
-            , UserRequestMapper userRequestMapper, UserService userService) {
+            , UserRequestMapper userRequestMapper, UserService userService, UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
         this.userRequestMapper = userRequestMapper;
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
@@ -48,7 +51,7 @@ public class AuthenticationController {
         var authenticate = this.authenticationManager.authenticate(usernamePassword);
         var token = this.tokenService.generateToken((UserEntity) authenticate.getPrincipal());
         this.tokenService.registerTokenInCookie(token, response);
-        return  ResponseEntity.ok().build();
+        return  ResponseEntity.ok().body(this.userMapper.toDefaultDataDTO((UserEntity) authenticate.getPrincipal()));
     }
 
     @PostMapping("/logout")
