@@ -1,7 +1,9 @@
 package br.com.monee.api.service;
 
+import br.com.monee.api.controller.mapper.UserMapper;
 import br.com.monee.api.entity.TransactionEntity;
 import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.entity.dto.UserDefaultDataDTO;
 import br.com.monee.api.repository.TransactionRepository;
 import br.com.monee.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,10 +18,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TransactionRepository transactionRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, TransactionRepository transactionRepository){
+    public UserService(UserRepository userRepository, TransactionRepository transactionRepository, UserMapper userMapper){
         this.userRepository = userRepository;
         this.transactionRepository = transactionRepository;
+        this.userMapper = userMapper;
     }
 
     public void save(UserEntity user){
@@ -32,12 +36,10 @@ public class UserService {
                         "Usuário não encontrado"
                 ));
     }
-
     public void createChallenges(UUID userId){
 
     };
-
-
-
-
+    public UserDefaultDataDTO getUserDefaultData(UserEntity entity){
+        return this.userMapper.toDefaultDataDTO(entity);
+    }
 }
