@@ -22,6 +22,8 @@ public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(nullable = false)
+    private String description;
     private BigDecimal amount;
     @Column(nullable = false)
     private LocalDate date;
