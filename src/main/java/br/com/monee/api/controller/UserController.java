@@ -2,6 +2,9 @@ package br.com.monee.api.controller;
 import br.com.monee.api.controller.mapper.TransactionMapper;
 import br.com.monee.api.entity.dto.*;
 import br.com.monee.api.service.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,13 @@ public class UserController {
         this.transactionCategoryService = transactionCategoryService;
     }
 
+    @Operation(summary = "GET para listar todas as transações de um cliente",
+    description = "Lista todas as transações do cliente informado")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Lista de transações retornada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro ao retornar lista de transações"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+    })
     @GetMapping("/{userId}/transactions")
     public ResponseEntity<?> getAllUserTransactions(@PathVariable UUID userId) {
         return ResponseEntity.ok().body(
