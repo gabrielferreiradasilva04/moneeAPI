@@ -27,4 +27,11 @@ public class TransactionCategoryEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public TransactionCategoryEntity(String title, String description, String icon, String color){
+        this.title = title;
+        this.description = description;
+        this.icon = icon;
+        this.color = color;
+    }
 }

@@ -18,9 +18,13 @@ public class TagEntity {
     private UUID id;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
     private String color;
     @ManyToOne
     @JoinColumn
     private UserEntity user;
+
+    public TagEntity(String title, String color){
+        this.title = title;
+        this.color = color;
+    }
 }
