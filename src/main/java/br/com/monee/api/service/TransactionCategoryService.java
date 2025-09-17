@@ -9,6 +9,7 @@ import br.com.monee.api.repository.TransactionCategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,10 @@ public class TransactionCategoryService {
                 .orElseThrow( () -> new EntityNotFoundException(
                         "Categoria de transação não encontrada"
                 ));
+    }
+
+    public List<TransactionCategoryResponseDTO> getAllTransactions(UUID userId){
+        return this.transactionCategoryRepository.getAllTransactionCategories(userId);
     }
 
     public TransactionCategoryResponseDTO save(UUID userId, TransactionCategoryRequestDTO transactionCategoryRequestDTO){
