@@ -1,16 +1,13 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.UserMapper;
-import br.com.monee.api.entity.TransactionEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.UserDefaultDataDTO;
+import br.com.monee.api.util.mapper.UserMapper;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.user.UserDefaultDataDTO;
 import br.com.monee.api.repository.TransactionRepository;
 import br.com.monee.api.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

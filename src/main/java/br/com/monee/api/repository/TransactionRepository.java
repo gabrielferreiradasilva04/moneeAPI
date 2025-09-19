@@ -1,7 +1,6 @@
 package br.com.monee.api.repository;
 
-import br.com.monee.api.entity.TagEntity;
-import br.com.monee.api.entity.TransactionEntity;
+import br.com.monee.api.domain.transaction.TransactionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

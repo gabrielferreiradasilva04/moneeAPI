@@ -1,6 +1,6 @@
 package br.com.monee.api.repository;
 
-import br.com.monee.api.entity.CreditCardEntity;
+import br.com.monee.api.domain.creditCard.CreditCardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

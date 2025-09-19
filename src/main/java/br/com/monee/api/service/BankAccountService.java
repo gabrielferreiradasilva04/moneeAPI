@@ -1,10 +1,10 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.BankAccountMapper;
-import br.com.monee.api.entity.BankAccountEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.BankAccountRequestDTO;
-import br.com.monee.api.entity.dto.BankAccountResponseDTO;
+import br.com.monee.api.util.mapper.BankAccountMapper;
+import br.com.monee.api.domain.bankAccount.BankAccountEntity;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.bankAccount.BankAccountRequestDTO;
+import br.com.monee.api.domain.bankAccount.BankAccountResponseDTO;
 import br.com.monee.api.repository.BankAccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

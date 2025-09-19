@@ -1,10 +1,10 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.TransactionCategoryMapper;
-import br.com.monee.api.entity.TransactionCategoryEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.TransactionCategoryRequestDTO;
-import br.com.monee.api.entity.dto.TransactionCategoryResponseDTO;
+import br.com.monee.api.util.mapper.TransactionCategoryMapper;
+import br.com.monee.api.domain.transaction.category.TransactionCategoryEntity;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.transaction.category.TransactionCategoryRequestDTO;
+import br.com.monee.api.domain.transaction.category.TransactionCategoryResponseDTO;
 import br.com.monee.api.repository.TransactionCategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

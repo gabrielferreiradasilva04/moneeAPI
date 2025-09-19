@@ -1,10 +1,10 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.ChallengeMapper;
-import br.com.monee.api.entity.ChallengeEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.ChallengeRequestDTO;
-import br.com.monee.api.entity.dto.ChallengeResponseDTO;
+import br.com.monee.api.util.mapper.ChallengeMapper;
+import br.com.monee.api.domain.challenge.ChallengeEntity;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.challenge.ChallengeRequestDTO;
+import br.com.monee.api.domain.challenge.ChallengeResponseDTO;
 import br.com.monee.api.repository.ChallengeRepository;
 import org.springframework.stereotype.Service;
 

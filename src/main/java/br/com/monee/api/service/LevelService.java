@@ -1,9 +1,9 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.LevelMapper;
-import br.com.monee.api.entity.LevelEntity;
-import br.com.monee.api.entity.dto.LevelRequestDTO;
-import br.com.monee.api.entity.dto.LevelResponseDTO;
+import br.com.monee.api.util.mapper.LevelMapper;
+import br.com.monee.api.domain.level.LevelEntity;
+import br.com.monee.api.domain.level.LevelRequestDTO;
+import br.com.monee.api.domain.level.LevelResponseDTO;
 import br.com.monee.api.repository.LevelRepository;
 import org.springframework.stereotype.Service;
 

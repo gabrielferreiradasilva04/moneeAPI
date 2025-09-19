@@ -1,6 +1,6 @@
 package br.com.monee.api.repository;
 
-import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.domain.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
