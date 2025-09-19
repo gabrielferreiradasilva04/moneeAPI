@@ -1,6 +1,11 @@
 package br.com.monee.api.controller;
-import br.com.monee.api.controller.mapper.TransactionMapper;
-import br.com.monee.api.entity.dto.*;
+import br.com.monee.api.domain.bankAccount.BankAccountRequestDTO;
+import br.com.monee.api.domain.creditCard.CreditCardRequestDTO;
+import br.com.monee.api.domain.transaction.TransactionRequestDTO;
+import br.com.monee.api.domain.transaction.category.TransactionCategoryRequestDTO;
+import br.com.monee.api.domain.transaction.tag.TagDTO;
+import br.com.monee.api.domain.transaction.tag.TagRequestDTO;
+import br.com.monee.api.util.mapper.TransactionMapper;
 import br.com.monee.api.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -60,7 +65,7 @@ public class UserController {
     @PostMapping("/{userId}/transactions/{transactionId}/tags")
     public ResponseEntity<?> addTagsToTransaction(@PathVariable UUID userId,
                                                   @PathVariable UUID transactionId,
-                                                  @RequestBody TransactionTagRequestDTO tagsId){
+                                                  @RequestBody TagRequestDTO tagsId){
         this.transactionService.addTags(userId, transactionId, tagsId.tagIds());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

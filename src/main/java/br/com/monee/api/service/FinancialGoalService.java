@@ -1,10 +1,10 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.FinancialGoalMapper;
-import br.com.monee.api.entity.FinancialGoalEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.FinancialGoalRequestDTO;
-import br.com.monee.api.entity.dto.FinancialGoalResponseDTO;
+import br.com.monee.api.util.mapper.FinancialGoalMapper;
+import br.com.monee.api.domain.financialGoal.FinancialGoalEntity;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.financialGoal.FinancialGoalRequestDTO;
+import br.com.monee.api.domain.financialGoal.FinancialGoalResponseDTO;
 import br.com.monee.api.repository.FinancialGoalRepository;
 import org.springframework.stereotype.Service;
 

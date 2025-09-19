@@ -1,7 +1,7 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.config.SecurityFilterConfigurarion;
-import br.com.monee.api.entity.UserEntity;
+import br.com.monee.api.infra.config.SecurityFilterConfigurarion;
+import br.com.monee.api.domain.user.UserEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

@@ -1,11 +1,10 @@
 package br.com.monee.api.controller;
 
-import br.com.monee.api.controller.mapper.UserMapper;
-import br.com.monee.api.controller.mapper.UserRequestMapper;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.UserDefaultDataDTO;
-import br.com.monee.api.entity.dto.UserLoginDTO;
-import br.com.monee.api.entity.dto.UserRequestDTO;
+import br.com.monee.api.util.mapper.UserMapper;
+import br.com.monee.api.util.mapper.UserRequestMapper;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.user.UserLoginDTO;
+import br.com.monee.api.domain.user.UserRequestDTO;
 import br.com.monee.api.service.TokenService;
 import br.com.monee.api.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;

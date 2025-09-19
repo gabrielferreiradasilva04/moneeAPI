@@ -1,8 +1,0 @@
-package br.com.monee.api.entity;
-
-import jakarta.persistence.Entity;
-
-
-public enum TransactionType {
-    RECEITA, DESPESA
-}

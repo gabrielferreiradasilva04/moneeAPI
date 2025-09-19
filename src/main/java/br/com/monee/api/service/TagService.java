@@ -1,9 +1,9 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.TagMapper;
-import br.com.monee.api.entity.TagEntity;
-import br.com.monee.api.entity.UserEntity;
-import br.com.monee.api.entity.dto.TagDTO;
+import br.com.monee.api.util.mapper.TagMapper;
+import br.com.monee.api.domain.transaction.tag.TagEntity;
+import br.com.monee.api.domain.user.UserEntity;
+import br.com.monee.api.domain.transaction.tag.TagDTO;
 import br.com.monee.api.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;

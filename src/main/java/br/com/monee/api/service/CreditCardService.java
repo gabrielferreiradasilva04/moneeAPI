@@ -1,10 +1,10 @@
 package br.com.monee.api.service;
 
-import br.com.monee.api.controller.mapper.CreditCardMapper;
-import br.com.monee.api.entity.BankAccountEntity;
-import br.com.monee.api.entity.CreditCardEntity;
-import br.com.monee.api.entity.dto.CreditCardRequestDTO;
-import br.com.monee.api.entity.dto.CreditCardResponseDTO;
+import br.com.monee.api.util.mapper.CreditCardMapper;
+import br.com.monee.api.domain.bankAccount.BankAccountEntity;
+import br.com.monee.api.domain.creditCard.CreditCardEntity;
+import br.com.monee.api.domain.creditCard.CreditCardRequestDTO;
+import br.com.monee.api.domain.creditCard.CreditCardResponseDTO;
 import br.com.monee.api.repository.CreditCardRepository;
 import org.springframework.stereotype.Service;
 
